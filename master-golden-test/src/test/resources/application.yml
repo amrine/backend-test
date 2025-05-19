@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: golden-test
+
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url: TESTCONTAINERS
+    username: test
+    password: test
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    encoding: UTF-8
+    locations: classpath:db/migration
+    out-of-order: false

@@ -91,7 +91,7 @@ Les tests sont dans `OrderServiceIT.java` et couvrent :
 
 ## 📚 Technologies utilisées
 
-- Java 17
+- Java 21
 - Spring Boot 3.x
 - Spring Data JPA
 - Docker
