@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -18,13 +18,14 @@
 
     <modules>
         <module>test-unitaire</module>
+        <module>test-utils</module>
+        <module>test-integration</module>
     </modules>
 
     <properties>
         <spring-boot-dependencies.version>3.4.5</spring-boot-dependencies.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <flyway.version>10.10.0</flyway.version>
-        <h2.version>2.3.232</h2.version>
+        <instancio.version>5.4.0</instancio.version>
 
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
@@ -58,13 +59,25 @@
                 <artifactId>flyway-core</artifactId>
                 <version>${flyway.version}</version>
             </dependency>
-            <!-- H2 Database -->
             <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <scope>runtime</scope>
-                <version>${h2.version}</version>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
             </dependency>
+            <!-- postgresql Database -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <!-- Testcontainers -->
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

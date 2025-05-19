@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: test-integration
+
+  # Configuration PostgreSQL
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test-integration
+    driverClassName: org.postgresql.Driver
+    username: test
+    password: integration
+
+  # Hibernate: ne gère pas les tables, c'est Flyway qui s'en charge
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  # Activer Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  
+# (optionnel) voir les logs Flyway
+logging:
+  level:
+    org.flywaydb: INFO

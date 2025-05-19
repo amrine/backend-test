@@ -1,4 +1,4 @@
-# 🛒 Backend Test – Test Unitaire Exemple
+# 🛒 Backend Test – Test d'Intégration Exemple
 
 Ce projet illustre un cas d’usage **réaliste et professionnel** d’un backend Spring Boot avec :
 
@@ -6,7 +6,7 @@ Ce projet illustre un cas d’usage **réaliste et professionnel** d’un backen
 - Accès aux clients et aux articles via repository
 - Réduction pour clients VIP
 - Validation des entrées (client + liste d’items)
-- Tests unitaires complets avec JUnit & Mockito
+- Tests d'intégration complets avec postgresql, flywaydb, testcontainers & junit-jupiter
 
 ---
 
@@ -15,8 +15,8 @@ Ce projet illustre un cas d’usage **réaliste et professionnel** d’un backen
 - 🔍 Vérifie que tous les items d’une commande existent
 - ❌ Lève une exception claire si un client ou des items sont manquants
 - 💸 Applique une réduction de 10% pour les clients VIP
-- ✅ Tests unitaires pour les cas nominaux et les erreurs
-- 🧪 Utilisation propre de Mockito + ArgumentCaptor + assertions
+- ✅ Tests d'intégration pour les cas nominaux et les erreurs
+- 🧪 Utilisation propre de spring-boot-starter-test + postgresql + flywaydb + testcontainers + assertions
 
 ---
 
@@ -25,7 +25,7 @@ Ce projet illustre un cas d’usage **réaliste et professionnel** d’un backen
 ```
 src/
 ├── main/
-│   └── java/fr/backendtest/testunitaire/
+│   └── java/fr/backendtest/testintegration/
 │       ├── dto/
 │       │   ├── OrderRequest.java
 │       │   └── OrderResponse.java
@@ -40,15 +40,17 @@ src/
 │       │   ├── CustomerRepository.java
 │       │   ├── ItemRepository.java
 │       │   └── OrderRepository.java
-│       └── service/
-│           ├── impl/
-│           │   └── OrderServiceImpl.java
-│           └── OrderService.java
+│       ├── service/
+│       │   ├── impl/
+│       │   │   └── OrderServiceImpl.java
+│       │   └── OrderService.java
+│       └── TestIntegrationApplication.java
 │
 └── test/
-    └── java/fr/backendtest/testunitaire/
-        └── service/
-            └── OrderServiceTest.java
+    └── java/fr/backendtest/testintegration/
+        ├── service/
+        │    └── OrderServiceIT.java
+        └── TestIntegrationApplicationTests.java
 ```
 
 ---
@@ -76,7 +78,7 @@ git clone https://github.com/amrine/backend-test.git
 
 ## 🧪 Pour exécuter les tests
 
-Les tests sont dans `OrderServiceTest.java` et couvrent :
+Les tests sont dans `OrderServiceIT.java` et couvrent :
 
 | Test                  | Ce qu’il vérifie                 |
 |-----------------------|----------------------------------|
@@ -90,11 +92,26 @@ Les tests sont dans `OrderServiceTest.java` et couvrent :
 ## 📚 Technologies utilisées
 
 - Java 17
-- Spring Boot
+- Spring Boot 3.x
+- Spring Data JPA
+- Docker
+- Testcontainers (PostgreSQL)
 - JUnit 5
-- Mockito
+- Transactional tests
+- @SpringBootTest
 - Maven
 - Clean Architecture principles
+---
+
+## 🧪 Types de tests d'intégration couverts
+
+| Test                                | Objectif                                                    |
+|-------------------------------------|-------------------------------------------------------------|
+| ✔ Service avec logique métier       | Calcul total, réduction VIP, validations                    |
+| ✔ Persistance JPA                   | Sauvegarde réelle des entités, relations @ManyToMany        |
+| ✔ Séquences PostgreSQL              | Réinitialisation propre des IDs entre les tests             |
+| ✔ Chargement lazy vs eager          | Contrôle de `LazyInitializationException`                  |
+| ✔ Isolation entre les tests         | Réinitialisation via `TRUNCATE` et `RESTART IDENTITY`       |
 
 ---
 
@@ -111,10 +128,13 @@ Les tests sont dans `OrderServiceTest.java` et couvrent :
 
 ## 📌 Ce que tu peux faire ensuite
 
-- Ajouter une API REST autour de `OrderService`
-- Connecter à une vraie base de données (PostgreSQL, H2)
-- Ajouter une couche `@ControllerAdvice` pour exposer les exceptions proprement
-- Étendre avec des coupons ou frais de port
+- 🧹 Extraire DatabaseCleaner dans un module réutilisable (voir [test-utils](../test-utils))
+- 🔁 Ajouter des tests API avec MockMvc ou RestAssured
+- 📦 Créer un module test-support partagé entre projets
+- 🧪 Utiliser @Sql pour injecter des jeux de données
+- 🔐 Simuler des users Spring Security avec @WithMockUser
+- 📈 Mesurer la couverture avec JaCoCo (tests unitaires + intégration)
+- ⚙️ Intégrer les tests dans un pipeline CI avec Testcontainers
 
 ---
 
