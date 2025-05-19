@@ -18,17 +18,19 @@ backend-testing-playground/
 ├── pom.xml                     <-- POM parent
 ├── test-utils/                 <-- Module utils
 ├── test-unitaire/              <-- Module 1 : Test unitaire
-└── test-integration/           <-- Module 2 : Test d'Intégration
+├── test-integration/           <-- Module 2 : Test d'Intégration
+└── test-api/                   <-- Module 3 : Test d'API
 ```
 
 ---
 
 ## 📚 Modules disponibles
 
-| Module         | Description                                            | Lien                                        |
-|----------------|--------------------------------------------------------|---------------------------------------------|
-| 🛒 `test-unitaire` | Service de commande avec tests unitaires et mocks (Mockito) | Voir le [README](./test-unitaire/README.md) |
-| 🛒 `test-integration` | Service de commande avec tests d'intégration           | Voir le [README](./test-integration/README.md) |
+| Module                | Description                                                 | Lien                                           |
+|-----------------------|-------------------------------------------------------------|------------------------------------------------|
+| 🛒 `test-unitaire`    | Service de commande avec tests unitaires et mocks (Mockito) | Voir le [README](./test-unitaire/README.md)    |
+| 🛒 `test-integration` | Service de commande avec tests d'intégration                | Voir le [README](./test-integration/README.md) |
+| 🛒 `test-api`         | Service de commande avec tests d'API                        | Voir le [README](./test-api/README.md)         |
 
 ---
 
@@ -83,10 +85,30 @@ Les tests d’intégration vérifient que plusieurs composants fonctionnent ense
 ### 🛠 Outils
 SpringBootTest, Testcontainers, PostgreSQL, Docker
 
+## Tests d’API
+
+### 🔍 Définition
+Les tests d’API valident que les endpoints REST exposés par votre application fonctionnent correctement : statut HTTP, format de réponse, contenu retourné, gestion des erreurs…
+➡️ L’objectif : s’assurer que l’interface publique respecte bien le contrat attendu.
+
+### 🎯 Cas d’utilisation
+✔ Vérifier que chaque endpoint renvoie la bonne donnée (GET, POST, PUT, DELETE)
+
+✔ Contrôler les statuts HTTP selon les cas (200, 400, 403, 404, 500…)
+
+✔ Valider la structure et le contenu du JSON retourné
+
+✔ Tester les règles métier exposées via l’API
+
+### 🛠 Outils
+MockMvc, SpringBootTest, Cucumber, JSONAssert
+
 
 ### 🧩 Exemple
 - Voir [OrderServiceTest.java](./test-unitaire/src/test/java/fr/backendtest/testunitaire/service/OrderServiceTest.java)
 - Voir [OrderServiceIT.java](./test-integration/src/test/java/fr/backendtest/testintegration/service/OrderServiceIT.java)
+- Voir [OrderControllerIT.java](./test-api/src/test/java/fr/backendtest/testapi/controller/OrderControllerIT.java)
+- Voir [OrderSteps.java](./test-api/src/test/java/fr/backendtest/testapi/cucumber/steps/OrderSteps.java)
 
 ---
 
