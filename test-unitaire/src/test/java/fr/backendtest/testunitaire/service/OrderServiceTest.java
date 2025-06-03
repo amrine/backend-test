@@ -10,7 +10,7 @@ import fr.backendtest.testunitaire.exception.ItemNotFoundException;
 import fr.backendtest.testunitaire.repository.CustomerRepository;
 import fr.backendtest.testunitaire.repository.ItemRepository;
 import fr.backendtest.testunitaire.repository.OrderRepository;
-import fr.backendtest.testunitaire.serice.impl.OrderServiceImpl;
+import fr.backendtest.testunitaire.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -71,6 +71,7 @@ public class OrderServiceTest {
 
         // THEN
         assertEquals(10L, response.orderId());
+        verify(itemRepository).findAllById(itemIds);
         // Capture to check total and customer
         ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
         verify(orderRepository).save(captor.capture());
@@ -107,6 +108,7 @@ public class OrderServiceTest {
 
         // THEN
         assertEquals(10L, response.orderId());
+        verify(itemRepository).findAllById(itemIds);
         // Capture to check total and customer
         ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
         verify(orderRepository).save(captor.capture());
@@ -114,7 +116,7 @@ public class OrderServiceTest {
 
         assertEquals(customer, savedOrder.getCustomer());
         assertEquals(2, savedOrder.getItems().size());
-        assertEquals(1050, savedOrder.getTotal()); // 10% discount
+        assertEquals(1050, savedOrder.getTotal()); // no discount
     }
 
     @Test
@@ -150,9 +152,10 @@ public class OrderServiceTest {
         when(customerRepository.findById(unknownCustomerId)).thenReturn(Optional.empty());
 
         // WHEN && THEN
-        CustomerNotFoundException exception = assertThrows(CustomerNotFoundException.class, () -> {
-            orderService.placeOrder(request);
-        });
+        CustomerNotFoundException exception = assertThrows(
+            CustomerNotFoundException.class,
+            () -> orderService.placeOrder(request)
+        );
         assertTrue(exception.getMessage().contains("Customer not found"));
         verifyNoInteractions(itemRepository, orderRepository);
     }

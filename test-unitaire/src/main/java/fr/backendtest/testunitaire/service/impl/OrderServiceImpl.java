@@ -1,4 +1,4 @@
-package fr.backendtest.testunitaire.serice.impl;
+package fr.backendtest.testunitaire.service.impl;
 
 import fr.backendtest.testunitaire.dto.OrderRequest;
 import fr.backendtest.testunitaire.dto.OrderResponse;
@@ -10,7 +10,7 @@ import fr.backendtest.testunitaire.exception.ItemNotFoundException;
 import fr.backendtest.testunitaire.repository.CustomerRepository;
 import fr.backendtest.testunitaire.repository.ItemRepository;
 import fr.backendtest.testunitaire.repository.OrderRepository;
-import fr.backendtest.testunitaire.serice.OrderService;
+import fr.backendtest.testunitaire.service.OrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package fr.backendtest.testunitaire.serice;
+package fr.backendtest.testunitaire.service;
 
 import fr.backendtest.testunitaire.dto.OrderRequest;
 import fr.backendtest.testunitaire.dto.OrderResponse;
