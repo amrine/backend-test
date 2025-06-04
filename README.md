@@ -14,18 +14,21 @@ Ce projet est une **démonstration structurée de plusieurs types de tests backe
 
 ```
 backend-testing-playground/
-├── README.md               <-- Ce fichier
-├── pom.xml                 <-- POM parent
-└── test-unitaire/           <-- Module 1 : Test unitaire
+├── README.md                   <-- Ce fichier
+├── pom.xml                     <-- POM parent
+├── test-utils/                 <-- Module utils
+├── test-unitaire/              <-- Module 1 : Test unitaire
+└── test-integration/           <-- Module 2 : Test d'Intégration
 ```
 
 ---
 
 ## 📚 Modules disponibles
 
-| Module         | Description | Lien |
-|----------------|-------------|------|
+| Module         | Description                                            | Lien                                        |
+|----------------|--------------------------------------------------------|---------------------------------------------|
 | 🛒 `test-unitaire` | Service de commande avec tests unitaires et mocks (Mockito) | Voir le [README](./test-unitaire/README.md) |
+| 🛒 `test-integration` | Service de commande avec tests d'intégration           | Voir le [README](./test-integration/README.md) |
 
 ---
 
@@ -43,8 +46,6 @@ backend-testing-playground/
 # Compiler tous les modules
 ./mvnw clean install
 
-# Lancer les tests d’un sous-module
-cd sous-module
 ./mvnw test
 ```
 
@@ -66,9 +67,26 @@ Les tests unitaires vérifient une méthode ou une classe isolée. Ils ne dépen
 ### 🛠 Outils
 JUnit, Mockito, AssertJ
 
+## Tests d'intégration
+
+### 🔍 Définition
+Les tests d’intégration vérifient que plusieurs composants fonctionnent ensemble : service, repository, base de données, configuration Spring...
+➡️ L’objectif : s’assurer que l’architecture ne se casse pas une fois les blocs connectés.
+
+### 🎯 Cas d’utilisation
+✔ Valider les requêtes vers la base de données (via JPA, JDBC, etc.)
+
+✔ Vérifier que Spring Boot démarre correctement (contexte, injection, etc.)
+
+✔ Tester l’interaction réelle entre les couches (ex : service ↔ repo ↔ DB)
+
+### 🛠 Outils
+SpringBootTest, Testcontainers, PostgreSQL, Docker
+
 
 ### 🧩 Exemple
-Voir [OrderServiceTest.java](./test-unitaire/src/test/java/fr/backendtest/testunitaire/service/OrderServiceTest.java)
+- Voir [OrderServiceTest.java](./test-unitaire/src/test/java/fr/backendtest/testunitaire/service/OrderServiceTest.java)
+- Voir [OrderServiceIT.java](./test-integration/src/test/java/fr/backendtest/testintegration/service/OrderServiceIT.java)
 
 ---
 

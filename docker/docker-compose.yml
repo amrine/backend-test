@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: test-db
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - test-db
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${db_user}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  test-db:
+    driver: bridge
