@@ -31,7 +31,7 @@ backend-testing-playground/
 
 ## ✅ Prérequis
 
-- Java 17+
+- Java 21+
 - Maven 3.9+
 - IDE Java : IntelliJ, Eclipse ou VS Code
 

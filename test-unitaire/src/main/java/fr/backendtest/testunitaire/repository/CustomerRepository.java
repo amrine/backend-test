@@ -17,7 +17,6 @@ public class CustomerRepository {
     public Optional<Customer> findById(Long customerId) {
         return customers.stream()
                 .filter(c -> c.getId().equals(customerId))
-                .findFirst()
-                .or(Optional::empty);
+                .findFirst();
     }
 }
