@@ -20,12 +20,14 @@
         <module>test-unitaire</module>
         <module>test-utils</module>
         <module>test-integration</module>
+        <module>test-api</module>
     </modules>
 
     <properties>
         <spring-boot-dependencies.version>3.4.5</spring-boot-dependencies.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <instancio.version>5.4.0</instancio.version>
+        <cucumber.version>7.22.2</cucumber.version>
 
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
@@ -77,7 +79,25 @@
                 <version>${testcontainers.version}</version>
                 <scope>test</scope>
             </dependency>
-
+            <!-- cucumber -->
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-spring</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit-platform-engine</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
